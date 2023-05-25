@@ -1,16 +1,5 @@
-    async function getPhotographers() {
+import { getPhotographers } from "../utils/getPhotographers";
 
-        const response = await fetch("./data/photographers.json");
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data.photographers);
-            return ({
-                photographers: data.photographers
-            })
-        } else {
-            throw new Error("Données impossibles à atteindre.");
-        }
-    }
 
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
