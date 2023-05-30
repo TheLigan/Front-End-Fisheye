@@ -1,4 +1,4 @@
-import { getPhotographers } from "../utils/getPhotographers";
+import { getPhotographers } from "../utils/getPhotographers.js";
 
 
     async function displayData(photographers) {
