@@ -1,37 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <title>Fisheye - Photographes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="./css/style.css" rel="stylesheet" type="text/css"/>
   </head>
+
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="./index.html" tabindex="1" class="logo__link"><img src="./assets/images/logo.png" class="logo" alt="Fisheye Logo - Home page"/></a>
     </header>
-    <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
+    <main aria-hidden="false">
+
+      <section class="sort">
+        <p class="sort__label">Trier par</p>
+        <div class="sort__select sort__select-open" aria-label="dropdown" data-value="popularity">
+          <button aria-expanded="false" id="sort__button" class="sort__button button">Popularité
+            <i class="sort__down fa-solid fa-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="sort__options" role="list" aria-labelledby="sort__button" aria-activedescendant="popularity" style="display: none;">
+            <button class="sort__optionBtn sort__option" data-value="popularity" id="popularity" aria-selected="true" style="display: none;" tabindex="-1" role="button">Popularité
+            </button>
+            <button class="sort__optionBtn sort__option" data-value="date" id="date" tabindex="0" role="button">Date
+            </button>
+            <button class="sort__optionBtn sort__option" data-value="title" id="title" tabindex="0" role="button">Titre
+            </button>
+          </div>
+       </div>
+      </section>
+
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+
+    <footer class="counter" aria-label="Total of likes and price per day">
+      <div class="counter__likes" aria-label="likes counter">
+        <p class="likes"></p>
+        <i class="fa-solid fa-heart" aria-hidden="true" role="icon"></i>
+      </div>
+      <p class="price"></p>
+    </footer>
+
+    <div class="modal" aria-hidden="true" role="dialog" aria-label="contact form" aria-labelledby="formTitle">
+        <form class="form">
+          <div class="form__header" aria-describedby="formTitle">
+            <h2 id="formTitle" class="form__title">Contactez-moi</h2>
+            <button
+              type="button"
+              aria-label="Close contact form"
+              class="form__close"
+              data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <fieldset class="form__body">
+            <fieldset id="firstName-fieldset" class="fieldset">
+              <label class="form__label" id="firstName-label" for="prenom">Prénom</label>
+              <input class="form__input" aria-labelledby="firstName-label" aria-describedby="firstName-format" type="text" id="prenom" name="firstName" minlength="2" required aria-required="true"/>
+              <span id="firstName-format" class="hidden">Au moins 2 caractères</span>
+            </fieldset>
+            <fieldset id="lastName-fieldset" class="fieldset">
+              <label class="form__label" id="lastName-label" for="nom">Nom</label>
+              <input class="form__input" aria-labelledby="lastName-label" aria-describedby="lastName-format" type="text" id="nom" name="lastName" minlength="2" required aria-required="true"/>
+              <span id="lastName-format" class="hidden">Au moins 2 caractères</span>
+            </fieldset>
+            <fieldset id="email-fieldset" class="fieldset">
+              <label class="form__label" id="email-label" for="e-mail">Email</label>
+              <input class="form__input" aria-labelledby="email-label" aria-describedby="email-format" type="email" id="e-mail" name="email" pattern="\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})+$" required aria-required="true"/>
+              <span id="email-format" class="hidden">xy@abc.xyz</span>
+            </fieldset>
+            <fieldset id="message-fieldset" class="fieldset">
+              <label class="form__label" id="form-message-label" for="message">Message</label>
+              <input class="form__input" aria-labelledby="form-message-label" aria-describedby="message-format" type="text" id="message" name="message" minlength="10" maxlength="100" required aria-required="true"/>
+              <span id="message-format" class="hidden">Entre 10 et 100 caractères</span>
+            </fieldset>
+          </fieldset>
+          <button class="form__button button submit" aria-label="Send">Envoyer</button>
+        </form>
+    </div>
+    <div class="lightboxModal" id="lightboxModal" aria-label="lightbox modal" aria-hidden="true" role="dialog">
+
+      <button class="lightboxModal__previous" tabindex="1" aria-label="previous image">
+        <i class="fa-solid fa-caret-left" role="button"></i>
+      </button>
+
+      <button
+        aria-label="close dialog"
+        class="lightboxModal__close"
+        data-dismiss="lightboxModal"
+        tabindex="3">
+        <i class="fa-solid fa-xmark" role="button"></i>
+      </button>
+      <button class="lightboxModal__next" tabindex="2" aria-label="next image">
+        <i class="fa-solid fa-caret-right" role="button"></i>
+      </button>
+    </div>
+
+    <script type="module" src="./scripts/pages/photographer.js"></script>
   </body>
 </html>

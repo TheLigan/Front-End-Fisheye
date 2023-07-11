@@ -1,33 +1,60 @@
-function photographerFactory(data) {
-    const { name, id, city, country, tagline, price, portrait } = data;
 
-    const picture = `assets/photographers/${portrait}`;
+export function photographerFactory(photographer) {
+  const { id, name, portrait, city, country, tagline, price } = photographer;
 
-    function getUserCardDOM() {
-        const article = document.createElement("article");
-        const img = document.createElement("img");
-        const h2 = document.createElement("h2");
-        const h3 = document.createElement("h3");
-        const p = document.createElement("p");
-        const h4 = document.createElement("h4");
-        const a = document.createElement("a");
+  const picture = `./assets/photographers/${portrait}`;
 
-        img.setAttribute("src", picture);
-        h2.textContent = name;
-        h3.textContent = `${city} , ${country}`;
-        p.textContent = tagline;
-        h4.innerText = `${price} € / jour`;
-        a.setAttribute("href", `photographer.html?id=${id}`);
-        a.setAttribute("aria-label", `Lien vers le portfolio de ${name}`);
+  function getUserCardDOM() {
+      const article = document.createElement( 'article' );
+      article.className += "photographer"
 
-        article.appendChild(img);
-        article.appendChild(h2);
-        article.appendChild(h3);
-        article.appendChild(p);
-        article.appendChild(h4);
-        a.appendChild(article);
+      const photographerLink = document.createElement("a");
+      photographerLink.setAttribute("href", `./photographer.html?id=${id}`);
+      photographerLink.setAttribute("aria-label", `lien vers le portfolio de ${name}`);
+      photographerLink.className += "photographer__link"
 
-        return (a);
-    }
-    return { id, name, picture, city, price, country, medias, getUserCardDOM, }
+      const photographerImg = document.createElement( 'img' );
+      photographerImg.setAttribute("src", picture);
+      photographerImg.setAttribute("alt", `${name} - photographer page`);
+      photographerImg.className += "photographer__img";
+
+      const photographerName = document.createElement( 'h2' );
+      photographerName.textContent = name;
+      photographerName.className += "photographer__name";
+
+      const photographerLocation = document.createElement("h3");
+      photographerLocation.textContent = `${city}, ${country}`;
+      photographerLocation.className += "photographer__location";
+
+      const photographerTagline = document.createElement("p");
+      photographerTagline.textContent = tagline;
+      photographerTagline.className += "photographer__tagline"
+
+      const photographerPrice = document.createElement("p");
+      photographerPrice.textContent = `${price}€/jour`;
+      photographerPrice.className += "photographer__price"
+
+      article.appendChild(photographerLink)
+      photographerLink.appendChild(photographerImg)
+      photographerLink.appendChild(photographerName)
+      article.appendChild(photographerLocation);
+      article.appendChild(photographerTagline);
+      article.appendChild(photographerPrice)
+
+      return (article);
+  }
+
+  function getUserHeader() {
+      const photographerHeader = `
+      <div class="photographer__info" aria-label="Photographer informations" role="presentation">
+          <h2 class="photographer__name photographer__name--doubled">${name}</h2>
+              <p class="photographer__location photographer__location--doubled">${city}, ${country}</p>
+              <p class="photographer__tagline photographer__tagline--doubled">${tagline}</p>
+      </div>
+      <button class="contact__button button" aria-label="contact ${name}">Contactez-moi</button>
+      <img src="./assets/photographers/${portrait}" alt="${name}" class="photographer__img" aria-label="picture of ${name}">
+      `
+      return photographerHeader
+  }
+  return { name, picture, price, getUserCardDOM, getUserHeader }
 }
