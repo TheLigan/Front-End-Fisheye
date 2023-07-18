@@ -84,10 +84,7 @@ header {
   margin-top: 6.25em;
   margin-bottom: 6.25em;
 }
-.photographer__info {
-  display: flex;
-  flex-direction: column;
-}
+
 .photographer__link {
   text-decoration: none;
   display: flex;
@@ -225,10 +222,10 @@ button:focus-visible {
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 40%;
   max-width: 37.5rem;
-  height: 85%;
+  height: 95%;
   max-height: 43.75rem;
   border-radius: 0.3em;
   background-color: #DB8876;
