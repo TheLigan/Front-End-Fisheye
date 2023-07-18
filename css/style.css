@@ -232,7 +232,9 @@ button:focus-visible {
   max-height: 43.75rem;
   border-radius: 0.3em;
   background-color: #DB8876;
-  padding: 2em;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 0px;
 }
 .form__header {
   display: flex;
@@ -250,6 +252,8 @@ button:focus-visible {
   border: none;
 }
 .form__title {
+  width: 1000px;
+  margin-top: 10px;
   font-size: 2em;
   font-weight: 400;
   vertical-align: top;

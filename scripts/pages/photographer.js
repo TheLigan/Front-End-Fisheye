@@ -88,6 +88,22 @@ async function renderLikeMedia() {
       }
       updateLikes()
     })
+    likeBtn.addEventListener("keydown", () => {
+      if (!likeBtn.hasAttribute("clicked")) {
+        likeBtn.toggleAttribute("clicked");
+        likeBtn.classList.toggle("fa-regular");
+        likeBtn.classList.toggle("fa-solid");
+        likesNumber += 1
+        media.querySelector(".media__likeNumber").innerText = likesNumber
+      } else {
+        likeBtn.toggleAttribute("clicked");
+        likeBtn.classList.toggle("fa-regular");
+        likeBtn.classList.toggle("fa-solid");
+        likesNumber -= 1
+        media.querySelector(".media__likeNumber").innerText = likesNumber
+      }
+      updateLikes()
+    })
   })
 }
 

@@ -50,6 +50,7 @@ export function mediaFactory(media) {
     para.innerText = likes;
     const icon = document.createElement("i");
     icon.classList.add("fa-regular", "fa-heart", "media__likeIcon");
+    icon.setAttribute("tabindex", 0)
     mediaInfo.appendChild(mediaLike);
     mediaLike.appendChild(para)
     mediaLike.appendChild(icon)
