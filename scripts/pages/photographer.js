@@ -68,44 +68,32 @@ async function renderLikesCounter() {
 
 async function renderLikeMedia() {
   const medias = document.querySelectorAll(".media");
-  medias.forEach(media => {
-    let likesNumber = parseInt(media.querySelector(".media__likeNumber").innerText);
-    const likeBtn = media.querySelector(".media__likeIcon");
 
-    likeBtn.addEventListener("click", () => {
-      if (!likeBtn.hasAttribute("clicked")) {
-        likeBtn.toggleAttribute("clicked");
-        likeBtn.classList.toggle("fa-regular");
-        likeBtn.classList.toggle("fa-solid");
-        likesNumber += 1
-        media.querySelector(".media__likeNumber").innerText = likesNumber
-      } else {
-        likeBtn.toggleAttribute("clicked");
-        likeBtn.classList.toggle("fa-regular");
-        likeBtn.classList.toggle("fa-solid");
-        likesNumber -= 1
-        media.querySelector(".media__likeNumber").innerText = likesNumber
-      }
-      updateLikes()
-    })
-    likeBtn.addEventListener("keydown", () => {
-      if (!likeBtn.hasAttribute("clicked")) {
-        likeBtn.toggleAttribute("clicked");
-        likeBtn.classList.toggle("fa-regular");
-        likeBtn.classList.toggle("fa-solid");
-        likesNumber += 1
-        media.querySelector(".media__likeNumber").innerText = likesNumber
-      } else {
-        likeBtn.toggleAttribute("clicked");
-        likeBtn.classList.toggle("fa-regular");
-        likeBtn.classList.toggle("fa-solid");
-        likesNumber -= 1
-        media.querySelector(".media__likeNumber").innerText = likesNumber
-      }
-      updateLikes()
-    })
-  })
+  function handleLikeClick(media, likeBtn) {
+      let likesNumber = parseInt(media.querySelector(".media__likeNumber").innerText);
+      likeBtn.toggleAttribute("clicked");
+      likeBtn.classList.toggle("fa-regular");
+      likeBtn.classList.toggle("fa-solid");
+      likesNumber += likeBtn.hasAttribute("clicked") ? 1 : -1;
+      media.querySelector(".media__likeNumber").innerText = likesNumber;
+      updateLikes();
+  }
+
+  medias.forEach(media => {
+      const likeBtn = media.querySelector(".media__likeIcon");
+
+      likeBtn.addEventListener("click", () => {
+          handleLikeClick(media, likeBtn);
+      });
+
+      likeBtn.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+              handleLikeClick(media, likeBtn);
+          }
+      });
+  });
 }
+
 
 
 function updateLikes() {
@@ -131,7 +119,7 @@ async function renderMedia(mediaId) {
     figure.classList.add("lightboxModal__figure")
 
     const lightboxImg = document.createElement("img");
-    lightboxImg.src = `../assets/photographers/${photographerId}/${image}`;
+    lightboxImg.src = `./assets/photographers/${photographerId}/${image}`;
     lightboxImg.alt = `${title} - close-up view`;
     lightboxImg.classList.add("lightboxModal__img");
     figure.appendChild(lightboxImg);
@@ -154,7 +142,7 @@ async function renderMedia(mediaId) {
     figure.appendChild(lightboxVideo);
 
     const lightboxVideoSrc = document.createElement("source");
-    lightboxVideoSrc.src = `../assets/photographers/${photographerId}/${video}`;
+    lightboxVideoSrc.src = `./assets/photographers/${photographerId}/${video}`;
     lightboxVideoSrc.type = "video/mp4";
     lightboxVideo.appendChild(lightboxVideoSrc);
 
